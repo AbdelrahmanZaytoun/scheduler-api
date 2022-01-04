@@ -31,6 +31,14 @@ const controllers = fs.readdirSync("./src/controllers");
 module.exports = function application(
   actions = { updateAppointment: () => {} }
 ) {
+  for (const controller of controllers) {
+    app.use(
+      `/api/${controller}`,
+      require(`./src/controllers/${controller}`)(express.Router(), db, {
+        updateAppointment: actions.updateAppointment,
+      })
+    );
+  }
   const { ENV } = process.env;
   if (ENV === "development" || ENV === "test") {
     Promise.all([
