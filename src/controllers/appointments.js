@@ -1,5 +1,5 @@
 module.exports = (router, db, { updateAppointment }) => {
-  router.get("/appointments", (request, response) => {
+  router.get("/", (request, response) => {
     db.query(
       `
           SELECT

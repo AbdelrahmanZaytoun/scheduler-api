@@ -32,9 +32,11 @@ module.exports = function application(
   actions = { updateAppointment: () => {} }
 ) {
   for (const controller of controllers) {
+    const name = controller.split(".")[0];
+    console.log(`/api/${name}`);
     app.use(
-      `/api/${controller}`,
-      require(`./src/controllers/${controller}`)(express.Router(), db, {
+      `/api/${name}`,
+      require(`./src/controllers/${name}`)(express.Router(), db, {
         updateAppointment: actions.updateAppointment,
       })
     );
